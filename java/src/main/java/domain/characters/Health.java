@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Health {
 
   static final int INITIAL_HEALTH = 1000;
-  private final int value;
+  private int value;
 
   private Health() {
     this.value = INITIAL_HEALTH;
@@ -13,6 +13,10 @@ public class Health {
 
   public static Health init() {
     return new Health();
+  }
+
+  public int value() {
+    return value;
   }
 
   @Override
@@ -25,5 +29,9 @@ public class Health {
   @Override
   public int hashCode() {
     return Objects.hashCode(value);
+  }
+
+  public void reduce(int damage) {
+    this.value = this.value - damage;
   }
 }

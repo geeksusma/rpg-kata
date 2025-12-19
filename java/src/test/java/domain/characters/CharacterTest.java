@@ -38,4 +38,14 @@ class CharacterTest {
       assertThat(character.level()).isEqualTo(1);
     });
   }
+
+  @Test
+  void should_loseHealth_when_damaged() {
+    //Given
+    Character damagedCharacter = Character.init();
+    //When
+    damagedCharacter.damage(1);
+    //Then
+    assertThat(damagedCharacter.health()).isLessThan(Health.INITIAL_HEALTH);
+  }
 }

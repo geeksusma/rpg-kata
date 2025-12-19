@@ -20,10 +20,14 @@ public class Character {
   }
 
   public int health() {
-    return 1000;
+    return health.value();
   }
 
   public int level() {
     return 1;
+  }
+
+  public void damage(int damage) {
+    health.reduce(damage);
   }
 }

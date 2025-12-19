@@ -13,6 +13,18 @@ class HealthTest {
     Health initialHealth = Health.init();
 
     //Then
-    assertThat(initialHealth).hasFieldOrPropertyWithValue("value",Health.INITIAL_HEALTH);
+    assertThat(initialHealth).hasFieldOrPropertyWithValue("value", Health.INITIAL_HEALTH);
+  }
+
+  @Test
+  void should_loseHealth_when_reduce() {
+    //Given
+    Health initialHealth = Health.init();
+
+    //When
+    initialHealth.reduce(1);
+
+    //Then
+    assertThat(initialHealth.value()).isEqualTo(Health.INITIAL_HEALTH - 1);
   }
 }
