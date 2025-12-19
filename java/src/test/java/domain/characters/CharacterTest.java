@@ -48,4 +48,18 @@ class CharacterTest {
     //Then
     assertThat(damagedCharacter.health()).isLessThan(Health.INITIAL_HEALTH);
   }
+
+  @Test
+  void should_recoverHealth_when_healed() {
+    //Given
+    int expectedHeal = 500;
+    Character aCharacter = Character.init();
+    aCharacter.damage(600);
+
+    //When
+    aCharacter.heal(100);
+
+    //Then
+    assertThat(aCharacter.health()).isEqualTo(expectedHeal);
+  }
 }

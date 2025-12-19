@@ -38,4 +38,23 @@ public class Health {
   public boolean isAlive() {
     return this.value > 0;
   }
+
+  public void heal(int heal) {
+    assertIfDead();
+    recoverHeal(heal);
+  }
+
+  private void recoverHeal(int heal) {
+    this.value = this.value + heal;
+
+    if (this.value > INITIAL_HEALTH) {
+      this.value = INITIAL_HEALTH;
+    }
+  }
+
+  private void assertIfDead() {
+    if (!isAlive()) {
+      throw new IsDead();
+    }
+  }
 }

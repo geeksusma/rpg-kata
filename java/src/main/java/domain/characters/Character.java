@@ -30,4 +30,8 @@ public class Character {
   public void damage(int damage) {
     health.reduce(damage);
   }
+
+  public void heal(int heal) {
+    health.heal(heal);
+  }
 }
