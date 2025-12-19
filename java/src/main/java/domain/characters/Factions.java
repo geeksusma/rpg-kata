@@ -18,4 +18,8 @@ public class Factions {
   public void leave(String faction) {
     values.remove(faction);
   }
+
+  public boolean isFriend(String faction) {
+    return values.stream().anyMatch(f -> f.equals(faction));
+  }
 }

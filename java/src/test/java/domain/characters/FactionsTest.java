@@ -51,4 +51,19 @@ class FactionsTest {
     //Then
     assertThat(factions).hasFieldOrPropertyWithValue("values", new HashSet<>());
   }
+
+  @Test
+  void should_returnIfFriends_when_factionAlreadyJoined() {
+    //Given
+    Factions factions = Factions.init();
+    factions.join("one");
+    factions.join("two");
+    factions.join("three");
+
+    //When
+    //Then
+    assertThat(factions.isFriend("two")).isTrue();
+    assertThat(factions.isFriend("four")).isFalse();
+  }
+
 }
