@@ -6,13 +6,20 @@ public class Character {
 
   private final Level level;
 
-  public Character() {
+  private final Fighter fighter;
+
+  private Character(Fighter fighter) {
     this.health = Health.init();
     this.level = Level.init();
+    this.fighter = fighter;
   }
 
-  public static Character init() {
-    return new Character();
+  public static Character ranged() {
+    return init(Fighter.RANGED);
+  }
+
+  public static Character melee() {
+    return init(Fighter.MELEE);
   }
 
   public boolean isAlive() {
@@ -23,7 +30,9 @@ public class Character {
     return health.value();
   }
 
-  public int level() { return level.value(); }
+  public int level() {
+    return level.value();
+  }
 
   public void damage(int damage) {
     health.reduce(damage);
@@ -46,14 +55,14 @@ public class Character {
   }
 
   private int doubleIfTargetIsQuiteBelowThanMe(Character target, int damage) {
-    if(this.level() - target.level() >= 5){
+    if (this.level() - target.level() >= 5) {
       damage = damage * 2;
     }
     return damage;
   }
 
   private int reduceIfTargetIsQuiteBiggerThanMe(Character target, int damage) {
-    if(target.level() - this.level() >= 5){
+    if (target.level() - this.level() >= 5) {
       damage = damage / 2;
     }
     return damage;
@@ -67,5 +76,9 @@ public class Character {
 
   public void increaseLevels(int levelsToAdd) {
     level.increase(levelsToAdd);
+  }
+
+  private static Character init(Fighter fighter) {
+    return new Character(fighter);
   }
 }

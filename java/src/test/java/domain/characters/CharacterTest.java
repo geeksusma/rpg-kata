@@ -11,7 +11,7 @@ class CharacterTest {
   @Test
   void should_initWithDefaultHealth_when_newCharacter() {
 
-    assertThat(Character.init())
+    assertThat(Character.melee())
       .satisfies(character -> {
         assertThat(character).hasFieldOrPropertyWithValue("health", Health.init());
       });
@@ -20,7 +20,7 @@ class CharacterTest {
   @Test
   void should_initWithDefaultLevel_when_newCharacter() {
 
-    assertThat(Character.init())
+    assertThat(Character.melee())
       .satisfies(character -> {
         assertThat(character).hasFieldOrPropertyWithValue("level", Level.init());
       });
@@ -30,7 +30,7 @@ class CharacterTest {
   void should_initCharacterAliveInLevelOneWithDefaultHealth_when_newCharacter() {
 
     //When
-    Character newCharacter = Character.init();
+    Character newCharacter = Character.melee();
 
     //Then
     assertThat(newCharacter).satisfies(character -> {
@@ -43,7 +43,7 @@ class CharacterTest {
   @Test
   void should_loseHealth_when_damaged() {
     //Given
-    Character damagedCharacter = Character.init();
+    Character damagedCharacter = Character.melee();
     //When
     damagedCharacter.damage(1);
     //Then
@@ -54,7 +54,7 @@ class CharacterTest {
   void should_recoverHealth_when_healed() {
     //Given
     int expectedHeal = 500;
-    Character aCharacter = Character.init();
+    Character aCharacter = Character.melee();
     aCharacter.damage(600);
 
     //When
@@ -67,7 +67,7 @@ class CharacterTest {
   @Test
   void should_cantFightWithMyself_when_fight() {
     //Given
-    Character aCharacter = Character.init();
+    Character aCharacter = Character.melee();
 
     //When
     Throwable error = catchThrowable(() -> aCharacter.fight(aCharacter, 1));
@@ -79,8 +79,8 @@ class CharacterTest {
   @Test
   void should_targetLoseHealth_when_attacked() {
     //Given
-    Character target = Character.init();
-    Character attacker = Character.init();
+    Character target = Character.melee();
+    Character attacker = Character.melee();
 
     //When
     attacker.fight(target, 1);
@@ -92,10 +92,10 @@ class CharacterTest {
   @Test
   void should_reducedDamage_when_targetLevelIsFiveLevelsAbove() {
     //Given
-    Character target = Character.init();
+    Character target = Character.melee();
     target.increaseLevels(5);
 
-    Character attacker = Character.init();
+    Character attacker = Character.melee();
 
     //When
     attacker.fight(target, 10);
@@ -107,8 +107,8 @@ class CharacterTest {
   @Test
   void should_increasedDamage_when_targetLevelIsFiveLevelsBelow() {
     //Given
-    Character target = Character.init();
-    Character attacker = Character.init();
+    Character target = Character.melee();
+    Character attacker = Character.melee();
     attacker.increaseLevels(5);
 
     //When
@@ -118,4 +118,15 @@ class CharacterTest {
     assertThat(target.health()).isEqualTo(980);
   }
 
+  @Test
+  void should_createAMeleeFighter_when_melee() {
+
+    assertThat(Character.melee()).hasFieldOrPropertyWithValue("fighter", Fighter.MELEE);
+  }
+
+  @Test
+  void should_createARangedFighter_when_ranged() {
+
+    assertThat(Character.ranged()).hasFieldOrPropertyWithValue("fighter", Fighter.RANGED);
+  }
 }
