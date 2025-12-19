@@ -42,39 +42,6 @@ public class Character {
     health.heal(heal);
   }
 
-  public void fightAgainstTarget(Attack attack) {
-    Character target = attack.getTarget();
-    assertNotFightingAgainstMe(target);
-    int damage = calculateDamage(target, attack.getDamage());
-    target.damage(damage);
-  }
-
-  private int calculateDamage(Character target, int damage) {
-    damage = reduceIfTargetIsQuiteBiggerThanMe(target, damage);
-    damage = doubleIfTargetIsQuiteBelowThanMe(target, damage);
-    return damage;
-  }
-
-  private int doubleIfTargetIsQuiteBelowThanMe(Character target, int damage) {
-    if (this.level() - target.level() >= 5) {
-      damage = damage * 2;
-    }
-    return damage;
-  }
-
-  private int reduceIfTargetIsQuiteBiggerThanMe(Character target, int damage) {
-    if (target.level() - this.level() >= 5) {
-      damage = damage / 2;
-    }
-    return damage;
-  }
-
-  private void assertNotFightingAgainstMe(Character target) {
-    if (target.equals(this)) {
-      throw new IllegalFight();
-    }
-  }
-
   public void increaseLevels(int levelsToAdd) {
     level.increase(levelsToAdd);
   }

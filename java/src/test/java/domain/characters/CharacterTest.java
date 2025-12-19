@@ -4,7 +4,6 @@ package domain.characters;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
 
 class CharacterTest {
 
@@ -62,60 +61,6 @@ class CharacterTest {
 
     //Then
     assertThat(aCharacter.health()).isEqualTo(expectedHeal);
-  }
-
-  @Test
-  void should_cantFightWithMyself_when_fight() {
-    //Given
-    Character aCharacter = Character.melee();
-
-    //When
-    Throwable error = catchThrowable(() -> aCharacter.fightAgainstTarget(Attack.of(aCharacter, 1)));
-
-    //Then
-    assertThat(error).isInstanceOf(IllegalFight.class);
-  }
-
-  @Test
-  void should_targetLoseHealth_when_attacked() {
-    //Given
-    Character target = Character.melee();
-    Character attacker = Character.melee();
-
-    //When
-    attacker.fightAgainstTarget(Attack.of(target, 1));
-
-    //Then
-    assertThat(target.health()).isLessThan(Health.INITIAL_HEALTH);
-  }
-
-  @Test
-  void should_reducedDamage_when_targetLevelIsFiveLevelsAbove() {
-    //Given
-    Character target = Character.melee();
-    target.increaseLevels(5);
-
-    Character attacker = Character.melee();
-
-    //When
-    attacker.fightAgainstTarget(Attack.of(target, 10));
-
-    //Then
-    assertThat(target.health()).isEqualTo(995);
-  }
-
-  @Test
-  void should_increasedDamage_when_targetLevelIsFiveLevelsBelow() {
-    //Given
-    Character target = Character.melee();
-    Character attacker = Character.melee();
-    attacker.increaseLevels(5);
-
-    //When
-    attacker.fightAgainstTarget(Attack.of(target, 10));
-
-    //Then
-    assertThat(target.health()).isEqualTo(980);
   }
 
   @Test
