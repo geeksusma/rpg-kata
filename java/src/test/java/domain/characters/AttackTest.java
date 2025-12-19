@@ -14,7 +14,7 @@ class AttackTest {
     Character aCharacter = Character.melee();
 
     //When
-    Throwable error = catchThrowable(() -> Attack.of(aCharacter, aCharacter, 1).fight());
+    Throwable error = catchThrowable(() -> Attack.of(aCharacter, aCharacter, 10, 1).fight());
 
     //Then
     assertThat(error).isInstanceOf(IllegalFight.class);
@@ -27,7 +27,7 @@ class AttackTest {
     Character attacker = Character.melee();
 
     //When
-    Attack.of(attacker, target, 1).fight();
+    Attack.of(attacker, target, 10, 1).fight();
 
     //Then
     assertThat(target.health()).isLessThan(Health.INITIAL_HEALTH);
@@ -42,7 +42,7 @@ class AttackTest {
     Character attacker = Character.melee();
 
     //When
-    Attack.of(attacker, target, 10).fight();
+    Attack.of(attacker, target, 10, 1).fight();
 
     //Then
     assertThat(target.health()).isEqualTo(995);
@@ -56,10 +56,35 @@ class AttackTest {
     attacker.increaseLevels(5);
 
     //When
-    Attack.of(attacker, target, 10).fight();
+    Attack.of(attacker, target, 10, 1).fight();
 
     //Then
     assertThat(target.health()).isEqualTo(980);
+  }
+
+  @Test
+  void should_fight_when_inRange() {
+    //Given
+    Character source = Character.ranged();
+    Character target = Character.melee();
+
+    //When
+    Attack.of(source, target, 10, 10).fight();
+    //Then
+    assertThat(target.health()).isEqualTo(990);
+  }
+
+  @Test
+  void should_skipFight_when_notInRange() {
+    //Given
+    Character source = Character.melee();
+    Character target = Character.melee();
+
+    //When
+    Attack.of(source, target, 10, 3).fight();
+
+    //Then
+    assertThat(target.health()).isEqualTo(Health.INITIAL_HEALTH);
   }
 
 }

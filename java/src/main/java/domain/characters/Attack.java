@@ -4,22 +4,30 @@ public class Attack {
   private final Character source;
   private final Character target;
   private int damage;
+  private int distance;
 
-  private Attack(Character source, Character target, int damage) {
+  private Attack(Character source, Character target, int damage, int distance) {
     this.source = source;
     this.target = target;
     this.damage = damage;
+    this.distance = distance;
   }
 
-  public static Attack of(Character source, Character target, int damage) {
-    return new Attack(source, target, damage);
+  public static Attack of(Character source, Character target, int damage, int distance) {
+    return new Attack(source, target, damage, distance);
   }
 
 
   public void fight() {
     avoidFightIfTargetAndSourceAreTheSame();
-    calculateDamage();
-    target.damage(damage);
+    if (fightersAreInRange()) {
+      calculateDamage();
+      target.damage(damage);
+    }
+  }
+
+  private boolean fightersAreInRange() {
+    return source.range() >= distance;
   }
 
   private void calculateDamage() {

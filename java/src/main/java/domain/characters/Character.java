@@ -49,4 +49,8 @@ public class Character {
   private static Character init(Fighter fighter) {
     return new Character(fighter);
   }
+
+  public int range() {
+    return fighter.meters();
+  }
 }
