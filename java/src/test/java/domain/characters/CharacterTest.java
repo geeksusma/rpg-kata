@@ -70,7 +70,7 @@ class CharacterTest {
     Character aCharacter = Character.melee();
 
     //When
-    Throwable error = catchThrowable(() -> aCharacter.fight(aCharacter, 1));
+    Throwable error = catchThrowable(() -> aCharacter.fightAgainstTarget(Attack.of(aCharacter, 1)));
 
     //Then
     assertThat(error).isInstanceOf(IllegalFight.class);
@@ -83,7 +83,7 @@ class CharacterTest {
     Character attacker = Character.melee();
 
     //When
-    attacker.fight(target, 1);
+    attacker.fightAgainstTarget(Attack.of(target, 1));
 
     //Then
     assertThat(target.health()).isLessThan(Health.INITIAL_HEALTH);
@@ -98,7 +98,7 @@ class CharacterTest {
     Character attacker = Character.melee();
 
     //When
-    attacker.fight(target, 10);
+    attacker.fightAgainstTarget(Attack.of(target, 10));
 
     //Then
     assertThat(target.health()).isEqualTo(995);
@@ -112,7 +112,7 @@ class CharacterTest {
     attacker.increaseLevels(5);
 
     //When
-    attacker.fight(target, 10);
+    attacker.fightAgainstTarget(Attack.of(target, 10));
 
     //Then
     assertThat(target.health()).isEqualTo(980);

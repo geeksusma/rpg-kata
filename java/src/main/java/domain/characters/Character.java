@@ -42,9 +42,10 @@ public class Character {
     health.heal(heal);
   }
 
-  public void fight(Character target, int damage) {
+  public void fightAgainstTarget(Attack attack) {
+    Character target = attack.getTarget();
     assertNotFightingAgainstMe(target);
-    damage = calculateDamage(target, damage);
+    int damage = calculateDamage(target, attack.getDamage());
     target.damage(damage);
   }
 
