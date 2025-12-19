@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Level {
 
-  private final int value;
+  private int value;
 
   private Level() {
     this.value = 1;
@@ -12,6 +12,10 @@ public class Level {
 
   public static Level init() {
     return new Level();
+  }
+
+  public int value() {
+    return value;
   }
 
   @Override
@@ -25,5 +29,9 @@ public class Level {
   @Override
   public int hashCode() {
     return Objects.hashCode(value);
+  }
+
+  public void increase(int level) {
+    this.value = this.value + level;
   }
 }

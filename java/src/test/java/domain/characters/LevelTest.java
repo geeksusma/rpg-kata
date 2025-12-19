@@ -17,5 +17,4 @@ class LevelTest {
     assertThat(initialLevel).hasFieldOrPropertyWithValue("value", 1);
   }
 
-
 }
