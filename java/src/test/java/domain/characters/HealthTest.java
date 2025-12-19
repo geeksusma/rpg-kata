@@ -27,4 +27,26 @@ class HealthTest {
     //Then
     assertThat(initialHealth.value()).isEqualTo(Health.INITIAL_HEALTH - 1);
   }
+
+  @Test
+  void should_returnAsDead_when_healthIsLowerOrEqualToZero() {
+    //Give
+    Health death = Health.init();
+
+    //When
+    death.reduce(Health.INITIAL_HEALTH);
+
+    //Then
+    assertThat(death.isAlive()).isFalse();
+  }
+
+  @Test
+  void should_returnAsAlive_when_healthIsGreaterThanZero() {
+    //Given
+    Health alive = Health.init();
+    //When
+    alive.reduce(10);
+    //Then
+    assertThat(alive.isAlive()).isTrue();
+  }
 }

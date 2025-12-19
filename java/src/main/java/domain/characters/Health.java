@@ -34,4 +34,8 @@ public class Health {
   public void reduce(int damage) {
     this.value = this.value - damage;
   }
+
+  public boolean isAlive() {
+    return this.value > 0;
+  }
 }

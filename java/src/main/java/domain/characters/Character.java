@@ -16,7 +16,7 @@ public class Character {
   }
 
   public boolean isAlive() {
-    return true;
+    return this.health.isAlive();
   }
 
   public int health() {
