@@ -20,10 +20,14 @@ public class Attack {
 
   public void fight() {
     avoidFightIfTargetAndSourceAreTheSame();
-    if (fightersAreInRange()) {
+    if (fightersAreInRange()&&theyAreEnemies()) {
       calculateDamage();
       target.damage(damage);
     }
+  }
+
+  private boolean theyAreEnemies() {
+    return !source.isAlly(target);
   }
 
   private boolean fightersAreInRange() {

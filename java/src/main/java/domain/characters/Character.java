@@ -1,5 +1,7 @@
 package domain.characters;
 
+import java.util.List;
+
 public class Character {
 
   private final Health health;
@@ -67,5 +69,23 @@ public class Character {
 
   public void leave(String faction) {
     factions.leave(faction);
+  }
+
+  public boolean isAlly(Character target) {
+    boolean isAlly = false;
+    List<String> myFactions = myFactions();
+    isAlly = isAnAlly(target, myFactions, isAlly);
+    return isAlly;
+  }
+
+  private static boolean isAnAlly(Character target, List<String> myFactions, boolean isAlly) {
+    for (int counter = 0; counter < myFactions.size() && !isAlly; counter++) {
+      isAlly = target.factions.isFriend(myFactions.get(counter));
+    }
+    return isAlly;
+  }
+
+  private List<String> myFactions() {
+    return this.factions.values();
   }
 }

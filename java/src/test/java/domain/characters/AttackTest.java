@@ -87,4 +87,47 @@ class AttackTest {
     assertThat(target.health()).isEqualTo(Health.INITIAL_HEALTH);
   }
 
+  @Test
+  void should_skipFight_when_areAllies() {
+    //Given
+    Character source = Character.melee();
+    source.join("test");
+    Character target = Character.melee();
+    target.join("test");
+
+    //When
+    Attack.of(source, target, 10, 1).fight();
+
+    //Then
+    assertThat(target.health()).isEqualTo(Health.INITIAL_HEALTH);
+  }
+
+  @Test
+  void should_fight_when_theyAreEnemies() {
+    //Given
+    Character source = Character.melee();
+    source.join("test");
+    Character target = Character.melee();
+    target.join("test2");
+
+    //When
+    Attack.of(source, target, 10, 1).fight();
+
+    //Then
+    assertThat(target.health()).isEqualTo(Health.INITIAL_HEALTH - 10);
+  }
+
+  @Test
+  void should_fight_when_targetHasNoFaction() {
+    //Given
+    Character source = Character.melee();
+    source.join("test");
+    Character target = Character.melee();
+
+    //When
+    Attack.of(source, target, 10, 1).fight();
+
+    //Then
+    assertThat(target.health()).isEqualTo(Health.INITIAL_HEALTH - 10);
+  }
 }

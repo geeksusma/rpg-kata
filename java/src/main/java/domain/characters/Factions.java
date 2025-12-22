@@ -1,6 +1,8 @@
 package domain.characters;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Factions {
@@ -25,5 +27,9 @@ public class Factions {
 
   public boolean isEmpty() {
     return this.values.isEmpty();
+  }
+
+  public List<String> values() {
+    return new ArrayList<>(this.values);
   }
 }
