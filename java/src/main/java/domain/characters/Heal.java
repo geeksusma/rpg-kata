@@ -16,8 +16,13 @@ public class Heal {
   }
 
   public void heal() {
-    if (source.equals(target)) {
-      target.heal(this.health);
+    if (theyAreEnemies()) {
+      throw new IllegalHeal();
     }
+    target.heal(this.health);
+  }
+
+  private boolean theyAreEnemies() {
+    return !source.equals(target) && !source.isAlly(target);
   }
 }
