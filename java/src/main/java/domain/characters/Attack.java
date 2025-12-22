@@ -1,14 +1,13 @@
 package domain.characters;
 
 public class Attack {
-  private final Character source;
-  private final Character target;
+
+  private Rivals rivals;
   private int damage;
   private int distance;
 
   private Attack(Character source, Character target, int damage, int distance) {
-    this.source = source;
-    this.target = target;
+    this.rivals = Rivals.with(source, target);
     this.damage = damage;
     this.distance = distance;
   }
@@ -20,18 +19,15 @@ public class Attack {
 
   public void fight() {
     avoidFightIfTargetAndSourceAreTheSame();
-    if (fightersAreInRange() && theyAreEnemies()) {
+    if (fightersAreInRange() && rivals.theyAreEnemies()) {
       calculateDamage();
-      target.damage(damage);
+      rivals.damage(damage);
     }
   }
 
-  private boolean theyAreEnemies() {
-    return !source.isAlly(target);
-  }
 
   private boolean fightersAreInRange() {
-    return source.range() >= distance;
+    return rivals.sourceRange() >= distance;
   }
 
   private void calculateDamage() {
@@ -40,21 +36,21 @@ public class Attack {
   }
 
   private int doubleIfTargetIsQuiteBelowThanSource() {
-    if (source.level() - target.level() >= 5) {
+    if (rivals.canIncreaseDamage()) {
       damage = damage * 2;
     }
     return damage;
   }
 
   private int reduceIfTargetIsQuiteBiggerThanSource() {
-    if (target.level() - source.level() >= 5) {
+    if (rivals.canReduceDamage()) {
       damage = damage / 2;
     }
     return damage;
   }
 
   private void avoidFightIfTargetAndSourceAreTheSame() {
-    if (target.equals(source)) {
+    if (rivals.sourceIsTarget()) {
       throw new IllegalFight();
     }
   }
