@@ -2,14 +2,14 @@ package domain.characters;
 
 public class Rivals {
   private final Character source;
-  private final Character target;
+  private final Target target;
 
-  private Rivals(Character source, Character target) {
+  private Rivals(Character source, Target target) {
     this.source = source;
     this.target = target;
   }
 
-  public static Rivals with(Character source, Character target) {
+  public static Rivals with(Character source, Target target) {
     return new Rivals(source, target);
   }
 

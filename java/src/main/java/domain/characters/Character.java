@@ -2,7 +2,7 @@ package domain.characters;
 
 import java.util.List;
 
-public class Character {
+public class Character implements Target {
 
   private final Health health;
 
@@ -71,16 +71,19 @@ public class Character {
     factions.leave(faction);
   }
 
-  public boolean isAlly(Character target) {
+  public boolean isAlly(Target target) {
     boolean isAlly = false;
     List<String> myFactions = myFactions();
     isAlly = isAnAlly(target, myFactions, isAlly);
     return isAlly;
   }
 
-  private static boolean isAnAlly(Character target, List<String> myFactions, boolean isAlly) {
+  private static boolean isAnAlly(Target target, List<String> myFactions, boolean isAlly) {
+    if (target instanceof NonCharacter) {
+      return false;
+    }
     for (int counter = 0; counter < myFactions.size() && !isAlly; counter++) {
-      isAlly = target.factions.isFriend(myFactions.get(counter));
+      isAlly = ((Character) target).factions.isFriend(myFactions.get(counter));
     }
     return isAlly;
   }

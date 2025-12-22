@@ -6,13 +6,13 @@ public class Attack {
   private int damage;
   private final int distance;
 
-  private Attack(Character source, Character target, int damage, int distance) {
+  private Attack(Character source, Target target, int damage, int distance) {
     this.rivals = Rivals.with(source, target);
     this.damage = damage;
     this.distance = distance;
   }
 
-  public static Attack of(Character source, Character target, int damage, int distance) {
+  public static Attack of(Character source, Target target, int damage, int distance) {
     return new Attack(source, target, damage, distance);
   }
 

@@ -130,4 +130,17 @@ class AttackTest {
     //Then
     assertThat(target.health()).isEqualTo(Health.INITIAL_HEALTH - 10);
   }
+
+  @Test
+  void should_damage_when_thingIsInDistance() {
+    //Given
+    Character ranged = Character.ranged();
+    NonCharacter aTable = NonCharacter.withHealth(20);
+
+    //When
+    Attack.of(ranged, aTable, 20, 4).fight();
+
+    //Then
+    assertThat(aTable.isDestroyed()).isTrue();
+  }
 }
