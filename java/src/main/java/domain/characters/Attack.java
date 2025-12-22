@@ -3,13 +3,11 @@ package domain.characters;
 public class Attack {
 
   private final Rivals rivals;
-  private int damage;
-  private final int distance;
+  private final BattleData battleData;
 
   private Attack(Character source, Target target, int damage, int distance) {
     this.rivals = Rivals.with(source, target);
-    this.damage = damage;
-    this.distance = distance;
+    this.battleData = BattleData.with(distance, damage);
   }
 
   public static Attack of(Character source, Target target, int damage, int distance) {
@@ -20,33 +18,36 @@ public class Attack {
   public void fight() {
     avoidFightIfTargetAndSourceAreTheSame();
     if (fightersAreInRange() && rivals.theyAreEnemies()) {
-      calculateDamage();
-      rivals.damage(damage);
+      rivals.damage(calculateDamage());
     }
   }
 
 
   private boolean fightersAreInRange() {
-    return rivals.sourceRange() >= distance;
+    return rivals.sourceRange() >= battleData.distance();
   }
 
-  private void calculateDamage() {
+  private int calculateDamage() {
+    int damage;
     damage = reduceIfTargetIsQuiteBiggerThanSource();
-    damage = doubleIfTargetIsQuiteBelowThanSource();
+    if (damage == battleData.damage()) {
+      damage = doubleIfTargetIsQuiteBelowThanSource();
+    }
+    return damage;
   }
 
   private int doubleIfTargetIsQuiteBelowThanSource() {
     if (rivals.canIncreaseDamage()) {
-      damage = damage * 2;
+      return battleData.damage() * 2;
     }
-    return damage;
+    return battleData.damage();
   }
 
   private int reduceIfTargetIsQuiteBiggerThanSource() {
     if (rivals.canReduceDamage()) {
-      damage = damage / 2;
+      return battleData.damage() / 2;
     }
-    return damage;
+    return battleData.damage();
   }
 
   private void avoidFightIfTargetAndSourceAreTheSame() {
