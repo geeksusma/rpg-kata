@@ -2,9 +2,9 @@ package domain.characters;
 
 public class Attack {
 
-  private Rivals rivals;
+  private final Rivals rivals;
   private int damage;
-  private int distance;
+  private final int distance;
 
   private Attack(Character source, Character target, int damage, int distance) {
     this.rivals = Rivals.with(source, target);
