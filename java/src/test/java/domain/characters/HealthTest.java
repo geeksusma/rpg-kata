@@ -85,6 +85,18 @@ class HealthTest {
     assertThat(almostDead.value()).isEqualTo(Health.INITIAL_HEALTH);
   }
 
+  @Test
+  void should_createWithFixedLife_when_fixed() {
+    //Given
+    int expectedLife = 2000;
+
+    //When
+    Health fixed = Health.fixed(expectedLife);
+
+    //Then
+    assertThat(fixed.value()).isEqualTo(expectedLife);
+  }
+
   private static Health damagedHeal() {
     Health notACorpse = Health.init();
     notACorpse.reduce(100);

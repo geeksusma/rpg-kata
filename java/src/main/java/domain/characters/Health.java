@@ -11,8 +11,16 @@ public class Health {
     this.value = INITIAL_HEALTH;
   }
 
+  private Health(int value) {
+    this.value = value;
+  }
+
   public static Health init() {
     return new Health();
+  }
+
+  public static Health fixed(int fixedLife) {
+    return new Health(fixedLife);
   }
 
   public int value() {

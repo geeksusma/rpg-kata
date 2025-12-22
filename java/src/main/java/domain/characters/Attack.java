@@ -20,7 +20,7 @@ public class Attack {
 
   public void fight() {
     avoidFightIfTargetAndSourceAreTheSame();
-    if (fightersAreInRange()&&theyAreEnemies()) {
+    if (fightersAreInRange() && theyAreEnemies()) {
       calculateDamage();
       target.damage(damage);
     }
