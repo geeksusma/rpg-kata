@@ -8,10 +8,13 @@ public class Character {
 
   private final Fighter fighter;
 
+  private final Factions factions;
+
   private Character(Fighter fighter) {
     this.health = Health.init();
     this.level = Level.init();
     this.fighter = fighter;
+    this.factions = Factions.init();
   }
 
   public static Character ranged() {
@@ -52,5 +55,17 @@ public class Character {
 
   public int range() {
     return fighter.meters();
+  }
+
+  public boolean hasFactions() {
+    return !factions.isEmpty();
+  }
+
+  public void join(String faction) {
+    factions.join(faction);
+  }
+
+  public void leave(String faction) {
+    factions.leave(faction);
   }
 }

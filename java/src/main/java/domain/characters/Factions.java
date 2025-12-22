@@ -22,4 +22,8 @@ public class Factions {
   public boolean isFriend(String faction) {
     return values.stream().anyMatch(f -> f.equals(faction));
   }
+
+  public boolean isEmpty() {
+    return this.values.isEmpty();
+  }
 }

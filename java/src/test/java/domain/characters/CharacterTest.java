@@ -74,4 +74,46 @@ class CharacterTest {
 
     assertThat(Character.ranged()).hasFieldOrPropertyWithValue("fighter", Fighter.RANGED);
   }
+
+  @Test
+  void should_hasNoFaction_when_newlyCreated() {
+    //Given
+    Character newly = Character.melee();
+
+    //When
+    boolean factions = newly.hasFactions();
+
+    //Then
+    assertThat(factions).isFalse();
+  }
+
+  @Test
+  void should_belongsToFaction_when_join() {
+    //Given
+    Character newly = Character.melee();
+    newly.join("test");
+
+    //When
+    boolean factions = newly.hasFactions();
+
+    //Then
+    assertThat(factions).isTrue();
+  }
+
+  @Test
+  void should_hasNoFaction_when_leaveAll() {
+    //Given
+    Character newly = Character.melee();
+    newly.join("test");
+    newly.join("test2");
+
+    //When
+    newly.leave("test");
+    assertThat(newly.hasFactions()).isTrue();
+
+    newly.leave("test2");
+
+    //Then
+    assertThat(newly.hasFactions()).isFalse();
+  }
 }
